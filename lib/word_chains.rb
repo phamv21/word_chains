@@ -19,8 +19,12 @@ class WordChains
         @map[word]
     end
     def ask(promt)
+        while true
         puts promt
         input = gets.chomp.downcase
+        return input if DICTIONARY === input
+        puts "you put the word with no meaning"
+        end
     end
 
 
@@ -28,7 +32,8 @@ class WordChains
         return true if word_set === @target
         return false if word_set.empty?
         grow_word_set = word_set.inject(Set[]){|a,b| a + self.adjacent(b)}
-        trace(grow_word_set)    
+        trace(grow_word_set)
+          
     end
 
     def run
