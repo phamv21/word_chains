@@ -11,7 +11,7 @@ class WordChains
         word.each_char.with_index do |el,i|
             ALPHABET.each do |new_e|
                 if new_e != el
-                new_word = word[0...i]+ new_e +word[i+1..-1]
+                new_word = word[0...i]+ new_e + word[i+1..-1]
                 end
                 @map[word] << new_word if DICTIONARY === new_word
             end
@@ -32,6 +32,7 @@ class WordChains
         return true if word_set === @target
         return false if word_set.empty?
         grow_word_set = word_set.inject(Set[]){|a,b| a + self.adjacent(b)}
+        return false if word_set == grow_word_set.inject(Set[]){|a,b| a + self.adjacent(b)} #prevent loop
         trace(grow_word_set)
           
     end
@@ -63,7 +64,7 @@ class WordChains
         puts "the chains is:"
         p result 
         else
-        puts "there is no word chains for #{@souce} to #{@target}"
+        puts "there is no word chains for #{@source} to #{@target}"
         end
         
     end
