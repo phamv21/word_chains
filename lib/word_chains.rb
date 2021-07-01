@@ -26,6 +26,7 @@ class WordChains
 
     def trace(word_set)
         return true if word_set === @target
+        return false if word_set.empty?
         grow_word_set = word_set.inject(Set[]){|a,b| a + self.adjacent(b)}
         trace(grow_word_set)    
     end
@@ -53,10 +54,13 @@ class WordChains
                     break
                     end
                 end
-            end   
-        end
+            end 
         puts "the chains is:"
         p result 
+        else
+        puts "there is no word chains for #{@souce} to #{@target}"
+        end
+        
     end
 
    
